@@ -98,7 +98,7 @@ goal_leaders <- ggplot(bkg_rect, aes(x = year)) +
   geom_mark_circle(data = annotations, aes(y = goals, group = player, filter = str_detect(player, "Gretzky"), label = glue("{year} Goal Leader"), description = glue("{player}: {goals} goals")), label.family = "American Typewriter Light", expand = unit(7, "mm"), label.colour = c("black", "#041E42"), label.fontface = c("plain", "bold")) +
   geom_mark_circle(data = annotations, aes(y = goals, group = player, filter = str_detect(player, "Gartner"), label = glue("{year} Goal Leader"), description = glue("{player}: {goals} goals")), label.family = "American Typewriter Light", expand = unit(7, "mm"), label.colour = c("black", "#FFB81C"), label.fontface = c("plain", "bold")) + 
   scale_x_continuous(limits = c(1980, 2003), expand = c(0,0), breaks = seq(1985, 2003, 5)) +
-  scale_y_continuous(limits = c(0, 110), breaks = seq(0, 120, 20)) +
+  scale_y_continuous(limits = c(0, 120), breaks = seq(0, 120, 20)) +
   labs(x = NULL, 
        y = NULL) +
   scale_color_identity() +
@@ -113,13 +113,13 @@ goal_leaders <- ggplot(bkg_rect, aes(x = year)) +
 
 goal_leaders
 stringx <- "Both Gretzky and Gartner have recorded the highest scoring seasong between 1980 and 2003. Each line in the bar represents the goals scored by one of the top 250 goal scorers in the NHL."
-subtitle <- str_wrap(stringx, width = 110)
+subtitle <- (str_wrap(stringx, width = 130))
 
 
-out <- wrap_plots(avg_scoring, goal_leaders, ncol = 1, heights = c(0.02, 0.98), widths = c(1, 1)) +
+out <- wrap_plots(avg_scoring, goal_leaders, ncol = 1, heights = c(0.05, 0.95), widths = c(1, 1)) +
   plot_annotation(title = "The Three Way Tie for the Record of Most Seasons Leading Goal-Scoring in the NHL",
                   subtitle = subtitle,
-                  caption = "**Data**: hockey-reference.com | **Graphic**: @jakekaupp") &
+                  caption = "**Data**: hockey-reference.com | **Graphic**: @mldebusklane") &
                   #theme = theme_jk(markdown = TRUE)) +
   theme(text = element_text(family = "American Typewriter Light", face = "bold"))
 
