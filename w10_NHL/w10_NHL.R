@@ -43,7 +43,7 @@ top_2 <- ppm_data %>%
   ungroup() %>% 
   top_n(2, n) %>% 
   arrange(desc(n)) %>% 
-  mutate(color = case_when(str_detect(player, "Gretzky") ~ "#041E42",
+  mutate(color = case_when(str_detect(player, "Gretzky") ~ "#fc4903",
                            str_detect(player, "Mike Gartner") ~ "#FFB81C",
                            TRUE ~ NA_character_),
          alpha = 1,
@@ -67,7 +67,7 @@ annotations <- ppm_data %>%
   ungroup() %>% 
   mutate(xend = c(1952, 1970),     # Not sure what these are for?
          yend = c(70, 90)) %>% 
-  mutate(color = case_when(str_detect(player, "Gretzky") ~ "#041E42",
+  mutate(color = case_when(str_detect(player, "Gretzky") ~ "#fc4903",
                            str_detect(player, "Mike Gartner") ~ "#FFB81C",
                            TRUE ~ NA_character_))
 
@@ -95,7 +95,7 @@ goal_leaders <- ggplot(bkg_rect, aes(x = year)) +
   geom_rect(aes(xmin = year - 0.3, xmax = year + 0.3, ymin = min_goals, ymax = max_goals), fill = "#e5e5e5", color = "#e5e5e5") +
   #geom_rect(aes(xmin = 2004 - 0.3, xmax = 2004 + 0.3, ymin = 0, ymax = 60), fill = "#FFFFFF", color = "#363636", size = 0.5) +
   geom_segment(data = plot_data, aes(x = year - 0.3, xend = year + 0.3, y = goals, yend = goals, color = color, alpha = alpha, size = size)) +
-  geom_mark_circle(data = annotations, aes(y = goals, group = player, filter = str_detect(player, "Gretzky"), label = glue("{year} Goal Leader"), description = glue("{player}: {goals} goals")), label.family = "American Typewriter Light", expand = unit(7, "mm"), label.colour = c("black", "#041E42"), label.fontface = c("plain", "bold")) +
+  geom_mark_circle(data = annotations, aes(y = goals, group = player, filter = str_detect(player, "Gretzky"), label = glue("{year} Goal Leader"), description = glue("{player}: {goals} goals")), label.family = "American Typewriter Light", expand = unit(7, "mm"), label.colour = c("black", "#fc4903"), label.fontface = c("plain", "bold")) +
   geom_mark_circle(data = annotations, aes(y = goals, group = player, filter = str_detect(player, "Gartner"), label = glue("{year} Goal Leader"), description = glue("{player}: {goals} goals")), label.family = "American Typewriter Light", expand = unit(7, "mm"), label.colour = c("black", "#FFB81C"), label.fontface = c("plain", "bold")) + 
   scale_x_continuous(limits = c(1980, 2003), expand = c(0,0), breaks = seq(1985, 2003, 5)) +
   scale_y_continuous(limits = c(0, 120), breaks = seq(0, 120, 20)) +
@@ -119,8 +119,7 @@ subtitle <- (str_wrap(stringx, width = 130))
 out <- wrap_plots(avg_scoring, goal_leaders, ncol = 1, heights = c(0.05, 0.95), widths = c(1, 1)) +
   plot_annotation(title = "The Three Way Tie for the Record of Most Seasons Leading Goal-Scoring in the NHL",
                   subtitle = subtitle,
-                  caption = "**Data**: hockey-reference.com | **Graphic**: @mldebusklane") &
-                  #theme = theme_jk(markdown = TRUE)) +
+                  caption = "**Data**: hockey-reference.com | **Graphic**: @mldebusklane | *Idea*: @jakekaupp") &
   theme(text = element_text(family = "American Typewriter Light", face = "bold"))
 
 out
